@@ -1,19 +1,34 @@
-// server.js
+// Importa Express, que es una biblioteca de Node.js utilizada para construir aplicaciones web.
 const express = require('express');
-const cors = require('./config/cors');
-const conectarDB = require('./config/db');
-const tareasRoutes = require('./routes');
 
+// Importa un módulo local llamado 'cors', que es un middleware de Express que permite o restringe las solicitudes de origen cruzado.
+const cors = require('./config/cors');
+
+// Importa la función 'conectarDB' que hemos definido anteriormente para conectar nuestra aplicación a una base de datos MongoDB.
+const conectarDB = require('./config/db');
+
+// Importa las rutas de tareas que hemos definido anteriormente en un router de Express.
+const tareasRoutes = require('./routes/tarea');
+
+// Crea una nueva aplicación Express.
 const app = express();
 
-// Conectar a la base de datos
+// Utiliza la función 'conectarDB' para conectar la aplicación a la base de datos.
 conectarDB();
 
-// Middleware
+// Añade el middleware de 'cors' y 'express.json()' a la aplicación.
+// 'cors' permite o restringe las solicitudes de origen cruzado.
+// 'express.json()' es un middleware incorporado en Express que analiza las solicitudes entrantes con cargas útiles JSON.
 app.use(cors);
 app.use(express.json());
-// Rutas
-app.use('/', tareasRoutes); // Usar las rutas de tareas
+
+// Añade las rutas de tareas a la aplicación.
+// Cuando alguien haga una solicitud a la ruta raíz ('/') o cualquier ruta que comience con '/', estas solicitudes serán manejadas por 'tareasRoutes'.
+app.use('/tarea', tareasRoutes); // Usar las rutas de tareas
+
+// Define el puerto en el que la aplicación va a escuchar las solicitudes.
+// Este puerto se toma del entorno, o si no está disponible, se usa el puerto 5000 por defecto.
 const PORT = process.env.PORT || 5000;
 
+// Inicia la aplicación en el puerto definido y muestra un mensaje en la consola una vez que la aplicación ha comenzado a escuchar solicitudes en ese puerto.
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
