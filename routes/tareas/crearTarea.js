@@ -3,8 +3,6 @@ const express = require("express");
 
 const router = express.Router();
 
-
-
 router.post('/', async (req, res) => {
     try {
         const { nombre, fechaLimite, estado, tareaPadre } = req.body;
@@ -24,6 +22,14 @@ router.post('/', async (req, res) => {
         const estadosPermitidos = ['creada', 'progreso', 'finalizada', 'declinada'];
         if (estado && !estadosPermitidos.includes(estado)) {
             return res.status(400).json({ error: "Estado inválido" });
+        }
+
+        let tareaPadreObj = null;
+        if (tareaPadre) {
+            tareaPadreObj = await Tareas.findById(tareaPadre);
+            if (!tareaPadreObj || !['creada', 'progreso'].includes(tareaPadreObj.estado)) {
+                return res.status(400).json({ error: "Tarea padre no existe" });
+            }
         }
 
         // crear la tarea

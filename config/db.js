@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/?retryWrites=true&w=majority`;
+//const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/?retryWrites=true&w=majority`;
+const uri = "mongodb+srv://diplomado:AqnLEAPAiWGmMJZv@cluster0.b0ohwyi.mongodb.net/diplomado?retryWrites=true&w=majority";
+
 
 const conectarDB = async () => {
     try {
