@@ -8,6 +8,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/tarea', tareasRoutes); // Usar las rutas de tareas
+app.use('/tareas', tareasRoutes); // Usar las rutas de tareas
 const server = app.listen( () => console.log(`Server running on test mode`));
 module.exports = server; // Asegúrate de exportar la aplicación
