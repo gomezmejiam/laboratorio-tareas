@@ -23,4 +23,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ids-laboratorio:latest
+        tags: ingeniods/ids-laboratorio:latest
